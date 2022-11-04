@@ -1,6 +1,7 @@
 // Included packages needed for this application & all Const's
 const inquirer = require('inquirer');
 const mysql2 = require('mysql2');
+const { exit } = require('process');
 require('console.table');
 
 // Connect to database
@@ -24,9 +25,11 @@ function start() {
         type: 'list',
         name: 'selection',
         message: 'What would you like to do?',
-        choices: ['View all departments', new inquirer.Separator(), 'View all roles', new inquirer.Separator(), 'View all employees', 'Add a department', new inquirer.Separator(), 'Add a role', new inquirer.Separator(), 'Add an employee', new inquirer.Separator(), 'Update an employee role']
+        choices: ['View all departments', new inquirer.Separator(), 'View all roles', new inquirer.Separator(), 'View all employees', new inquirer.Separator(),'Add a department', new inquirer.Separator(), 'Add a role', new inquirer.Separator(), 'Add an employee', new inquirer.Separator(), 'Update an employee role', new inquirer.Separator(), 'Exit?']
+
       },
     ])
+
     .then((answers) => {
       switch (answers.selection) {
         case 'View all departments':
@@ -55,77 +58,71 @@ function start() {
           break;
 
         case 'Update an employee role':
-          updateEmployee();
+          updateEmployeeRole();
           break;
 
-        default:
-          renderTeam()
+          case 'Exit?':
+            default:
+          return
+          console.log('Bye Bye')
+        // **NEED TO ADD QUIT OPTION**
       }
     }
     )
 }
 
-//*BUILD ALL FUNCTIONS 7 TOTAL*
-inquirer
-  .prompt([
-    //Pick Engineer, Employee, Intern. 
-    {
-      type: 'list',
-      name: 'selection',
-      message: 'What employee type are you adding?',
-      choices: ['Engineer', new inquirer.Separator(), 'Intern', new inquirer.Separator(), 'Finshed adding employees?']
-    }
-  ])
-  .then((answers) => {
-
-  })
-
-
+// *FUNCTIONS FOR ALL QUERY OPTIONS*
 function viewDepartments() {
   // Query database
-db.query('SELECT * FROM department', function (err, results) {
-  console.log(results);
-});
-    
+  db.query('SELECT * FROM department', function (err, results) {
+    console.table(results);
+  });
+  start()
 }
 
-function allRoles() {
-  inquirer
-    .prompt([
-      {
-        type: 'input',
-        name: 'name',
-        message: 'what is their name?'
-      },
-      {
-        type: 'input',
-        name: 'id',
-        message: 'What is their id?',
-      },
-      {
-        type: 'input',
-        name: 'email',
-        message: 'What is their email?',
-      },
-      {
-        type: 'input',
-        name: 'school',
-        message: 'What is their School?',
-      },
-    ])
-    .then((answers) => {
-      const intern = new Intern(answers.name, answers.id, answers.email, answers.school)
-      dreamTeam.push(intern)
-      buildTeam()
-    }
-    )
+function viewRolls() {
+  // Query database
+  db.query('SELECT * FROM roles', function (err, results) {
+    console.table(results);
+  });
+  start()
 }
 
-function renderTeam() {
-  fs.writeFile('./dist/index.html', writefinalHtml(dreamTeam), (err) =>
-    err ? console.log(err) : console.log('Success!')
-  );
+function viewEmployees() {
+  // Query database
+  db.query('SELECT * FROM employees', function (err, results) {
+    console.table(results);
+  });
+  start()
 }
 
+function addDepartment() {
+  // Query database
+  db.query('SELECT * FROM department', function (err, results) {
+    console.table(results);
+  });
+  start()
+}
 
+function addRole() {
+  // Query database
+  db.query('SELECT * FROM role', function (err, results) {
+    console.table(results);
+  });
+  start()
+}
 
+function addEmployee() {
+  // Query database
+  db.query('SELECT * FROM employee', function (err, results) {
+    console.table(results);
+  });
+  start()
+}
+
+function updateEmployeeRole() {
+  db.query('SELECT * FROM employee', function (err, results) {
+    console.table(results);
+  });
+  start()
+}

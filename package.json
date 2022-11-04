@@ -1,0 +1,25 @@
+{
+  "name": "employee-snapshot",
+  "version": "1.0.0",
+  "description": "A CLI application to create, update and manage a companies employee database using NODE.js, Inquirer & MySQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/206Dorian/employee-snapshot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/206Dorian/employee-snapshot/issues"
+  },
+  "homepage": "https://github.com/206Dorian/employee-snapshot#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.2.4",
+    "mysql2": "^2.3.3"
+  }
+}

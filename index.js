@@ -80,7 +80,7 @@ function viewDepartments() {
   start()
 }
 
-function viewRolls() {
+function viewRoles() {
   // Query database
   db.query('SELECT * FROM roles', function (err, results) {
     console.table(results);
@@ -97,7 +97,7 @@ function viewEmployees() {
 }
 
 function addDepartment() {
-  // Query database
+  // // **ADD PROMPT QUESTIONS LIKE BEFORE  Query database
   db.query('SELECT * FROM department', function (err, results) {
     console.table(results);
   });
@@ -105,7 +105,7 @@ function addDepartment() {
 }
 
 function addRole() {
-  // Query database
+  // **ADD PROMPT QUESTIONS LIKE BEFORE Query database
   db.query('SELECT * FROM role', function (err, results) {
     console.table(results);
   });
@@ -113,7 +113,7 @@ function addRole() {
 }
 
 function addEmployee() {
-  // Query database
+  // // **ADD PROMPT QUESTIONS LIKE BEFORE  Query database
   db.query('SELECT * FROM employee', function (err, results) {
     console.table(results);
   });
@@ -121,6 +121,7 @@ function addEmployee() {
 }
 
 function updateEmployeeRole() {
+  // ???
   db.query('SELECT * FROM employee', function (err, results) {
     console.table(results);
   });

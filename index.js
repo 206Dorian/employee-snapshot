@@ -25,7 +25,7 @@ function start() {
         type: 'list',
         name: 'selection',
         message: 'What would you like to do?',
-        choices: ['View all departments', new inquirer.Separator(), 'View all roles', new inquirer.Separator(), 'View all employees', new inquirer.Separator(),'Add a department', new inquirer.Separator(), 'Add a role', new inquirer.Separator(), 'Add an employee', new inquirer.Separator(), 'Update an employee role', new inquirer.Separator(), 'Exit?']
+        choices: ['View all departments', new inquirer.Separator(), 'View all roles', new inquirer.Separator(), 'View all employees', new inquirer.Separator(), 'Add a department', new inquirer.Separator(), 'Add a role', new inquirer.Separator(), 'Add an employee', new inquirer.Separator(), 'Update an employee role', new inquirer.Separator(), 'Exit?']
 
       },
     ])
@@ -98,7 +98,7 @@ function viewEmployees() {
 
 function addDepartment() {
   // // **ADD PROMPT QUESTIONS LIKE BEFORE  Query database
-  db.query('SELECT * FROM department', function (err, results) {
+  db.query('INSERT INTO department', function (err, results) {
     console.table(results);
   });
   start()
@@ -106,7 +106,7 @@ function addDepartment() {
 
 function addRole() {
   // **ADD PROMPT QUESTIONS LIKE BEFORE Query database
-  db.query('SELECT * FROM role', function (err, results) {
+  db.query('INSERT INTO role', function (err, results) {
     console.table(results);
   });
   start()
@@ -114,7 +114,7 @@ function addRole() {
 
 function addEmployee() {
   // // **ADD PROMPT QUESTIONS LIKE BEFORE  Query database
-  db.query('SELECT * FROM employee', function (err, results) {
+  db.query('INSERT INTO employee', function (err, results) {
     console.table(results);
   });
   start()

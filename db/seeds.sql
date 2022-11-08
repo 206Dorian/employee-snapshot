@@ -1,5 +1,5 @@
 INSERT INTO department (name)
-VALUES ("Analytics"),
+VALUES ("Analysis"),
        ("Accounting"),
        ("I.T.");
        

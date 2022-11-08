@@ -83,6 +83,14 @@ function viewDepartments() {
   start()
 }
 
+// roleChoices()
+// function roleChoices() {
+//   let choices=[]
+//     let roles = db.query('SELECT department.id, department.name, FROM department')
+//     choices.push(roles)
+//     console.log(choices)
+// }
+
 function viewRoles() {
   // Query database
   db.query('SELECT * FROM roles', function (err, results) {
@@ -114,27 +122,24 @@ function addDepartment() {
 
     ])
     .then((answers) => {
-      const department = new department(answers.department)
-      dreamTeam.push(department)
-      addDepartment()
+      (answers.department)
+      db.query(`INSERT INTO department VALUES ${department}`,
+        function (err, results) {
+          console.table(results);
+        });
+      start()
+
     }
     )
 }
-// // **ADD PROMPT QUESTIONS LIKE BEFORE  Query database
-db.query('INSERT INTO department', function (err, results) {
-  console.table(results);
-});
-start()
 
-
-// **ADD PROMPT QUESTIONS LIKE BEFORE Query database
 function addRole() {
   inquirer
     .prompt([
       {
         type: 'input',
         name: 'name',
-        message: 'what is the department?'
+        message: 'what is the name?'
       },
       {
         type: 'input',
@@ -142,28 +147,29 @@ function addRole() {
         message: 'What is their salary?',
       },
       {
-        type: 'input',
+        type: 'list',
         name: 'department',
         message: 'What is their department?',
+        // choices: ['Analysis', new inquirer.Separator(), 'Accounting', new inquirer.Separator(), 'I.T.']
+
+
+        //  *Need to do a function and add query?? 
+        //  choices: db.query('SELECT department.id, department.name FROM department')
       },
 
     ])
     .then((answers) => {
-      const role = new role(answers.name, answers.salary, answers.department)
-      dreamTeam.push(role)
-      addRole()
-    }
-    )
+      (answers.name, answers.salary, answers.department)
+      db.query(`INSERT INTO roles VALUES ${answers.name}, ${answers.salary}, ${answers.department}`,
+        function (err, results) {
+          console.log(role)
+          console.table(results);
+        });
+      start()
+    });
 }
 
-db.query('INSERT INTO role', function (err, results) {
-  console.table(results);
-});
-start()
-
-
 function addEmployee() {
-
   inquirer
     .prompt([
       {
@@ -188,23 +194,26 @@ function addEmployee() {
       },
     ])
     .then((answers) => {
-      const intern = new employee(answers.firstname, answers.lastname, answers.role, answers.manager)
-      dreamTeam.push(employee)
-      addEmployee()
-    }
-    )
+      (answers.firstname, answers.lastname, answers.role, answers.manager)
+      db.query(`INSERT INTO employee VALUE ${answers.first} ${answers.last} ${answers.role}, ${answers.manager}`,
+        function (err, results) {
+          console.log(employee)
+          console.table(results);
+        });
+      start()
+    });
 }
 
-// // **ADD PROMPT QUESTIONS LIKE BEFORE  Query database
-db.query('INSERT INTO employee', function (err, results) {
-  console.table(results);
-});
-start()
 
-function updateEmployeeRole() {
-  // ???
-  db.query('SELECT * FROM employee', function (err, results) {
-    console.table(results);
-  });
-  start()
-}
+// function (err, results) {
+//   console.table(results);
+// };
+// start()
+
+// function updateEmployeeRole() {
+//   // ???
+//   db.query('SELECT * FROM employee', function (err, results) {
+//     console.table(results);
+//   });
+//   start()
+// }

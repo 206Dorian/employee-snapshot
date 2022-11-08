@@ -2,7 +2,8 @@
 const inquirer = require('inquirer');
 const mysql2 = require('mysql2');
 const { exit } = require('process');
-require('console.table');
+// require('console.table');
+
 
 // Connect to database
 const db = mysql2.createConnection(
@@ -61,8 +62,8 @@ function start() {
           updateEmployeeRole();
           break;
 
-          case 'Exit?':
-            default:
+        case 'Exit?':
+        default:
           return
           console.log('Bye Bye')
         // **NEED TO ADD QUIT OPTION**
@@ -75,6 +76,8 @@ function start() {
 function viewDepartments() {
   // Query database
   db.query('SELECT * FROM department', function (err, results) {
+    console.log('\n');
+
     console.table(results);
   });
   start()
@@ -83,6 +86,8 @@ function viewDepartments() {
 function viewRoles() {
   // Query database
   db.query('SELECT * FROM roles', function (err, results) {
+
+
     console.table(results);
   });
   start()
@@ -91,34 +96,110 @@ function viewRoles() {
 function viewEmployees() {
   // Query database
   db.query('SELECT * FROM employees', function (err, results) {
+    console.log('\n');
+
     console.table(results);
   });
   start()
 }
 
 function addDepartment() {
-  // // **ADD PROMPT QUESTIONS LIKE BEFORE  Query database
-  db.query('INSERT INTO department', function (err, results) {
-    console.table(results);
-  });
-  start()
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'department',
+        message: 'what department?'
+      },
+
+    ])
+    .then((answers) => {
+      const department = new department(answers.department)
+      dreamTeam.push(department)
+      addDepartment()
+    }
+    )
+}
+// // **ADD PROMPT QUESTIONS LIKE BEFORE  Query database
+db.query('INSERT INTO department', function (err, results) {
+  console.table(results);
+});
+start()
+
+
+// **ADD PROMPT QUESTIONS LIKE BEFORE Query database
+function addRole() {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'what is the department?'
+      },
+      {
+        type: 'input',
+        name: 'salary',
+        message: 'What is their salary?',
+      },
+      {
+        type: 'input',
+        name: 'department',
+        message: 'What is their department?',
+      },
+
+    ])
+    .then((answers) => {
+      const role = new role(answers.name, answers.salary, answers.department)
+      dreamTeam.push(role)
+      addRole()
+    }
+    )
 }
 
-function addRole() {
-  // **ADD PROMPT QUESTIONS LIKE BEFORE Query database
-  db.query('INSERT INTO role', function (err, results) {
-    console.table(results);
-  });
-  start()
-}
+db.query('INSERT INTO role', function (err, results) {
+  console.table(results);
+});
+start()
+
 
 function addEmployee() {
-  // // **ADD PROMPT QUESTIONS LIKE BEFORE  Query database
-  db.query('INSERT INTO employee', function (err, results) {
-    console.table(results);
-  });
-  start()
+
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'first name',
+        message: 'what is their first name?'
+      },
+      {
+        type: 'input',
+        name: 'last name',
+        message: 'What is their last name?',
+      },
+      {
+        type: 'input',
+        name: 'role',
+        message: 'What is their role?',
+      },
+      {
+        type: 'input',
+        name: 'manager',
+        message: 'Who is their manager?',
+      },
+    ])
+    .then((answers) => {
+      const intern = new employee(answers.firstname, answers.lastname, answers.role, answers.manager)
+      dreamTeam.push(employee)
+      addEmployee()
+    }
+    )
 }
+
+// // **ADD PROMPT QUESTIONS LIKE BEFORE  Query database
+db.query('INSERT INTO employee', function (err, results) {
+  console.table(results);
+});
+start()
 
 function updateEmployeeRole() {
   // ???

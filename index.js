@@ -26,7 +26,7 @@ function start() {
         type: 'list',
         name: 'selection',
         message: 'What would you like to do?',
-        choices: ['View all departments', new inquirer.Separator(), 'View all roles', new inquirer.Separator(), 'View all employees', new inquirer.Separator(), 'Add a department', new inquirer.Separator(), 'Add a role', new inquirer.Separator(), 'Add an employee', new inquirer.Separator(), 'Update an employee role', new inquirer.Separator(), 'Exit?']
+        choices: ['View all departments', new inquirer.Separator(), 'View all roles', new inquirer.Separator(), 'View all employees', new inquirer.Separator(), 'Add a department', new inquirer.Separator(), 'Add a role', new inquirer.Separator(), 'Add an employee', new inquirer.Separator(), 'Update an employee role', new inquirer.Separator(), 'Exit?', new inquirer.Separator(), new inquirer.Separator(), new inquirer.Separator()]
 
       },
     ])
@@ -63,10 +63,12 @@ function start() {
           break;
 
         case 'Exit?':
-        default:
-          return
           console.log('Bye Bye')
-        // **NEED TO ADD QUIT OPTION**
+          break;
+        default:
+          console.log(ERROR)
+          return;
+
       }
     }
     )
@@ -75,7 +77,7 @@ function start() {
 // *FUNCTIONS FOR ALL QUERY OPTIONS*
 function viewDepartments() {
   // Query database
-  db.query('SELECT * FROM department', function (err, results) {
+  db.query('SELECT * FROM department;', function (err, results) {
     console.log('\n');
 
     console.table(results);
@@ -93,8 +95,7 @@ function viewDepartments() {
 
 function viewRoles() {
   // Query database
-  db.query('SELECT * FROM roles', function (err, results) {
-
+  db.query('SELECT * FROM role;', function (err, results) {
 
     console.table(results);
   });
@@ -103,7 +104,7 @@ function viewRoles() {
 
 function viewEmployees() {
   // Query database
-  db.query('SELECT * FROM employees', function (err, results) {
+  db.query('SELECT * FROM employee;', function (err, results) {
     console.log('\n');
 
     console.table(results);
@@ -123,14 +124,10 @@ function addDepartment() {
     ])
     .then((answers) => {
       (answers.department)
-      db.query(`INSERT INTO department VALUES ${department}`,
-        function (err, results) {
-          console.table(results);
-        });
+      db.query(`INSERT INTO department (name) VALUES ('${answers.department}');`);
+      console.log(answers.department)
       start()
-
-    }
-    )
+    })
 }
 
 function addRole() {
@@ -138,8 +135,8 @@ function addRole() {
     .prompt([
       {
         type: 'input',
-        name: 'name',
-        message: 'what is the name?'
+        name: 'role',
+        message: 'what is the new role?'
       },
       {
         type: 'input',
@@ -150,24 +147,21 @@ function addRole() {
         type: 'list',
         name: 'department',
         message: 'What is their department?',
-        // choices: ['Analysis', new inquirer.Separator(), 'Accounting', new inquirer.Separator(), 'I.T.']
-
+        choices: ['Analysis', new inquirer.Separator(), 'Accounting', new inquirer.Separator(), 'I.T.', new inquirer.Separator(), 'Maintenance', new inquirer.Separator(),]
 
         //  *Need to do a function and add query?? 
         //  choices: db.query('SELECT department.id, department.name FROM department')
       },
-
     ])
     .then((answers) => {
       (answers.name, answers.salary, answers.department)
-      db.query(`INSERT INTO roles VALUES ${answers.name}, ${answers.salary}, ${answers.department}`,
-        function (err, results) {
-          console.log(role)
-          console.table(results);
-        });
-      start()
+      db.query(`INSERT INTO role (name, salary, department) VALUES ('${answers.role}, ${answers.salary}, ${answers.department}');`)
+      console.log(role)
+
     });
-}
+  start()
+};
+
 
 function addEmployee() {
   inquirer
@@ -195,7 +189,7 @@ function addEmployee() {
     ])
     .then((answers) => {
       (answers.firstname, answers.lastname, answers.role, answers.manager)
-      db.query(`INSERT INTO employee VALUE ${answers.first} ${answers.last} ${answers.role}, ${answers.manager}`,
+      db.query(`INSERT INTO employee VALUE ${answers.first} ${answers.last} ${answers.role}, ${answers.manager};`,
         function (err, results) {
           console.log(employee)
           console.table(results);

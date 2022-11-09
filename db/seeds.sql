@@ -1,7 +1,8 @@
 INSERT INTO department (name)
 VALUES ("Analysis"),
        ("Accounting"),
-       ("I.T.");
+       ("I.T."),
+       ("Maintenance");
        
 
 INSERT INTO role (title, salary, department_id)

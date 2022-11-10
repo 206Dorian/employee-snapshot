@@ -4,17 +4,10 @@
  A CLI application to create, update and manage a companies employee database using NODE.js, Inquirer & MySQL
 
 
-Usage:
-
-## Installation - 
-node
-https://app.castify.com/view/4eabd111-1b69-4d32-a4ca-c36ed1c8676f
-
+ScreenCastify link:
+https://app.castify.com/view/95a78775-ede2-435e-8a65-9f0ea4980218
 
 https://206dorian.github.io/
-
-<img src="/assets/Dorian.png"> 
-<!-- **need to change image ** -->
 
 Credits
 N/A
